@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/views/home.dart';
 
 Future<void> main() async {
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Colors.white),
+      theme: ThemeData(
+          primaryColor: Colors.white,
+          fontFamily: GoogleFonts.quicksand().fontFamily),
       home: Home(),
     );
   }
