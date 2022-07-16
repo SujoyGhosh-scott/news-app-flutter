@@ -5,14 +5,16 @@ class ArticleModel {
   String url;
   String urlToImage;
   String? content;
-  //DateTime publishedAt;
+  String source;
+  String? publishedAt;
 
-  ArticleModel({
-    required this.author,
-    required this.title,
-    required this.description,
-    required this.content,
-    required this.url,
-    required this.urlToImage,
-  });
+  ArticleModel(
+      {this.author,
+      required this.title,
+      required this.description,
+      required this.content,
+      required this.url,
+      required this.urlToImage,
+      required this.source,
+      this.publishedAt});
 }

@@ -91,6 +91,8 @@ class _HomeState extends State<Home> {
                           title: articles[index].title,
                           desc: articles[index].description,
                           url: articles[index].url,
+                          source: articles[index].source,
+                          author: articles[index].author,
                         );
                       }),
                 )
@@ -149,12 +151,17 @@ class CategoryTile extends StatelessWidget {
 }
 
 class BlogTile extends StatelessWidget {
-  final String imageUrl, title, desc, url;
+  final String imageUrl, title, desc, url, source;
+  final String? author;
+  final DateTime? publishedAt;
   BlogTile(
       {required this.imageUrl,
       required this.title,
       required this.desc,
-      required this.url});
+      required this.url,
+      required this.source,
+      this.author,
+      this.publishedAt});
 
   @override
   Widget build(BuildContext context) {
@@ -169,9 +176,24 @@ class BlogTile extends StatelessWidget {
             children: [
               Hero(
                 tag: imageUrl,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(imageUrl)),
+                child: Stack(children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(imageUrl)),
+                  Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(8)),
+                      color: Colors.blue,
+                    ),
+                    child: Text(
+                      source,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ]),
               ),
               const SizedBox(
                 height: 6,
@@ -188,7 +210,7 @@ class BlogTile extends StatelessWidget {
               ),
               Text(
                 desc,
-                style: const TextStyle(fontSize: 16, color: Colors.black45),
+                style: const TextStyle(fontSize: 16, color: Colors.black54),
               )
             ],
           )),
