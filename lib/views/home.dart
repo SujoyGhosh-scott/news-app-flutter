@@ -5,6 +5,7 @@ import 'package:news_app/helper/news.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/categorie_model.dart';
 import 'package:news_app/views/article_view.dart';
+import 'package:news_app/views/category_news.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -56,46 +57,44 @@ class _HomeState extends State<Home> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              child: Container(
-                child: Column(children: [
-                  ///categories
-                  Container(
-                    height: 70,
-                    padding: const EdgeInsets.only(left: 14),
-                    child: ListView.builder(
-                      itemCount: categories.length,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        print(index);
-                        print(categories[index].categoryName);
-                        return CategoryTile(
-                          imageUrl: categories[index].imageUrl,
-                          categoryName: categories[index].categoryName,
-                        );
-                      },
-                    ),
+              child: Column(children: [
+                ///categories
+                Container(
+                  height: 70,
+                  padding: const EdgeInsets.only(left: 14),
+                  child: ListView.builder(
+                    itemCount: categories.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      // print(index);
+                      // print(categories[index].categoryName);
+                      return CategoryTile(
+                        imageUrl: categories[index].imageUrl,
+                        categoryName: categories[index].categoryName,
+                      );
+                    },
                   ),
+                ),
 
-                  ///blogs
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: articles.length,
-                        itemBuilder: (context, index) {
-                          return BlogTile(
-                            imageUrl: articles[index].urlToImage,
-                            title: articles[index].title,
-                            desc: articles[index].description,
-                            url: articles[index].url,
-                          );
-                        }),
-                  )
-                ]),
-              ),
+                ///blogs
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: articles.length,
+                      itemBuilder: (context, index) {
+                        return BlogTile(
+                          imageUrl: articles[index].urlToImage,
+                          title: articles[index].title,
+                          desc: articles[index].description,
+                          url: articles[index].url,
+                        );
+                      }),
+                )
+              ]),
             ),
     );
   }
@@ -108,7 +107,13 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => CategoryNews(
+                    category: categoryName.toString().toLowerCase()))));
+      },
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         child: Stack(children: [
@@ -159,7 +164,7 @@ class BlogTile extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ArticleView(blogUrl: url)));
       },
       child: Container(
-          margin: const EdgeInsets.only(bottom: 16),
+          margin: const EdgeInsets.only(bottom: 18),
           child: Column(
             children: [
               Hero(
@@ -173,9 +178,9 @@ class BlogTile extends StatelessWidget {
               ),
               Text(
                 title,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.blue.shade900,
+                style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(

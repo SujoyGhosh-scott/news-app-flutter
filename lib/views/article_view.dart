@@ -33,6 +33,15 @@ class _ArticleViewState extends State<ArticleView> {
             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
           ),
         ]),
+        actions: [
+          Opacity(
+            opacity: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: const Icon(Icons.abc),
+            ),
+          )
+        ],
         elevation: 0,
       ),
       body: Container(
